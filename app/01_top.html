@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- css -->
+    <link rel="stylesheet" href="../css/bootstrap.css" />
+    <link rel="stylesheet" href="../css/style.css" />
+
+    <!-- js -->
+    <script src="../js/vue.min.js"></script>
+    <script src="layout.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <title>ダッシュボード</title>
+  </head>
+
+  <body>
+    <section id="app">
+      <section class="container-fluid">
+        <div class="row">
+          <!-- サイドメニュー -->
+          <sidemenu></sidemenu>
+
+          <!-- 画面イメージ -->
+          <section role="main " class="col-md-10 ms-auto bg-light">
+            <!-- ナビバー -->
+            <nav
+              class="
+                navbar navbar-expand-md
+                sticky-top
+                navbar-light
+                bg-secondary bg-gradient
+              "
+            >
+              <div class="container-fluid">
+                <a class="navbar-brand" href="01_top.html">学習システム</a>
+                <button
+                  class="navbar-toggler"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#navbarSupportedContent"
+                  aria-controls="navbarSupportedContent"
+                  aria-expanded="false"
+                  aria-label="Toggle navigation"
+                >
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+                <div
+                  class="collapse navbar-collapse"
+                  id="navbarSupportedContent"
+                >
+                  <!-- 遷移 -->
+                  <ul class="navbar-nav mb-lg-0 ms-auto">
+                    <li class="nav-item nav-link">
+                      <a class="btn btn-primary" href="04_login.html"
+                        >ログイン</a
+                      >
+                    </li>
+                    <li class="nav-item nav-link">
+                      <a class="btn btn-primary" href="03_signin.html"
+                        >会員登録</a
+                      >
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </nav>
+            <!-- パンくず -->
+            <nav class="ps-2" aria-label="breadcrumb fs-5">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item active" aria-current="page">
+                  トップ（book一覧）
+                </li>
+              </ol>
+            </nav>
+
+            <!-- コンテンツ -->
+            <main class="container">
+              <!-- お知らせ表示 -->
+              <section class="row mb-3">
+                <div class="col-md-8 m-auto">
+                  <div class="alert alert-warning" role="alert">
+                    <h5 class="alert-heading">お知らせタイトル</h5>
+                    <div class="px-2">いろいろとお知らせ</div>
+                  </div>
+                </div>
+              </section>
+              <!-- book一覧 -->
+              <section class="row">
+                <a
+                  href="02_study.html"
+                  v-for="item in books"
+                  class="col-md-3 text-decoration-none"
+                >
+                  <div class="card mb-2" style="height: 10rem">
+                    <section class="row p-2">
+                      <img
+                        src="../asset/book.png"
+                        class="card-img-top col-4"
+                        alt="..."
+                        height="50"
+                        style="width: fit-content"
+                      />
+                      <h5 class="card-title col my-auto">{{item.name}}</h5>
+                    </section>
+
+                    <div class="card-body">
+                      <div class="card-text">
+                        {{item.category}}:{{item.level}}
+                      </div>
+                      <p class="card-text">{{item.description}}</p>
+                    </div>
+                  </div>
+                </a>
+              </section>
+            </main>
+          </section>
+        </div>
+      </section>
+    </section>
+
+    <!-- bootstrap.js -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- vue.js -->
+    <script>
+      var app = new Vue({
+        el: "#app",
+        data: {
+          lang: "en",
+          // ワード
+          login: { en: "login", ja: "ログイン" },
+          ID: { en: "login-ID", ja: "ログインID" },
+          PW: { en: "Password", ja: "パスワード" },
+          st: { en: "status on save", ja: "状態を記憶する" },
+          books: [
+            {
+              bookId: "b1",
+              category: "数学",
+              level: "小学校低学年",
+              name: "数学入門",
+              orderNum: 1,
+              description: "四則計算など、計算の基礎ルール",
+              img: "",
+            },
+            {
+              bookId: "b2",
+              category: "数学",
+              level: "小学校高学年",
+              name: "数学初級",
+              orderNum: 2,
+              description: "面積や速さなど身近な計算",
+              img: "",
+            },
+            {
+              bookId: "b3",
+              category: "数学",
+              level: "中学校",
+              name: "数学中級",
+              orderNum: 3,
+              description: "方程式など理論的な計算",
+              img: "",
+            },
+            {
+              bookId: "b4",
+              category: "数学",
+              level: "高校",
+              name: "数学上級",
+              orderNum: 4,
+              description: "微分積分などちょっと難しめ",
+              img: "",
+            },
+          ],
+          getApi: [],
+        },
+        mounted() {
+          this.getBook();
+        },
+        methods: {
+          async getBook() {
+            this.getApi = await axios.get(
+              "https://script.googleusercontent.com/macros/echo?user_content_key=QiEOOgbsAS-bRkGqszrm2iHAijILPpI36GIQ3o1SvAZg3RIwYMtfbLMF0HSnaEWlw0JTKjpr1lnRXDsmcLziQblS_w5IM7Bvm5_BxDlH2jW0nuo2oDemN9CCS2h10ox_1xSncGQajx_ryfhECjZEnGIUSO2jF-skBKFvT4ZVUnqRiPX8wCRK3ZSwt71vcjxHfNYgLDjI0eQCQQRb5_fsqK5hEvA4ivm2oR-tBC_2m9KRMdZzW9i2S9z9Jw9Md8uu&lib=MhijwKClD3QQKz-sYu-Op7rt50MI0EUZF"
+            );
+            this.books = this.getApi.data;
+            // console.log(this.apidata.data);
+          },
+        },
+      });
+    </script>
+
+    <style>
+      .card:hover {
+        background-color: lightblue;
+      }
+    </style>
+  </body>
+</html>

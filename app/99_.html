@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+	<!-- css -->
+	<link rel="stylesheet" href="../css/bootstrap.css">
+	<link rel="stylesheet" href="../css/style.css" />
+
+	<!-- js -->
+	<script src="../js/vue.min.js"></script>
+	<script src="layout.js"></script>
+	<title>ダッシュボード</title>
+</head>
+
+<body>
+	<section id="app">
+
+
+		<section class="container-fluid">
+			<div class="row">
+				<!-- サイドメニュー -->
+				<sidemenu></sidemenu>
+
+				<!-- 画面イメージ -->
+				<section role="main " class="col-md-10 ms-auto bg-light">
+					<!-- ナビバー -->
+					<navbar :lang.sync="lang"></navbar>
+					<!-- パンくず -->
+					<nav class="ps-2" aria-label="breadcrumb fs-5">
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item active" aria-current="page">
+								ログイン
+							</li>
+						</ol>
+					</nav>
+
+					<main class="container ">
+						<section class=" border m-auto text-center p-md-4" style="max-width: 600px">
+							<section>
+								<img class="my-3" src="../asset/logo.png" alt="" />
+							</section>
+
+							<h1 class="h3 mb-3 fw-normal text-center">
+								ログイン <span class="trans">{{login[lang]}}</span>
+							</h1>
+
+							<div class="form-floating mb-2">
+								<input type="text" class="form-control" id="floatingInput" placeholder="name@example.com" />
+								<label for="floatingInput">ログインID<span class="trans">{{ID[lang]}}</span></label>
+							</div>
+							<div class="form-floating mb-2">
+								<input type="password" class="form-control" id="floatingPassword" placeholder="パスワード" />
+								<label for="floatingPassword">パスワード<span class="trans">{{PW[lang]}}</span></label>
+							</div>
+							<a href="02.チュートリアル.html" class="w-100 btn btn-lg btn-primary mb-3">
+								ログイン<span class="trans">{{login[lang]}}</span>
+							</a>
+							<!-- Button trigger modal -->
+							<a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">
+								パスワードを忘れた方
+							</a>
+							<p class="mt-5 mb-3 text-muted">&copy; 2010-2022</p>
+						</section>
+					</main>
+
+					<!-- Modal -->
+					<div class="modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+						<div class="modal-dialog modal-dialog-centered ">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="exampleModalLabel">パスワードリセット</h5>
+									<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+								</div>
+								<div class="modal-body">
+									<div class="form-floating mb-2">
+										<input type="text" class="form-control" id="floatingInput" placeholder="name@example.com" />
+										<label for="floatingInput">ログインID<span class="trans">{{ID[lang]}}</span></label>
+									</div>
+									<div class="form-floating mb-2">
+										<input type="email" class="form-control" name="" id="" placeholder="sample@xxmail.com">
+										<label for="floatingPassword">パスワード<span class="trans">{{PW[lang]}}</span></label>
+									</div>
+
+									<div class="pt-2 text-center">入力したメールアドレスに、仮パスワードを送信します</div>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
+									<button type="button" class="btn btn-primary">パスワードをリセットする</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+			</div>
+		</section>
+	</section>
+
+	<!-- bootstrap.js -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+		crossorigin="anonymous"></script>
+
+	<!-- vue.js -->
+	<script>
+		var app = new Vue({
+			el: "#app",
+			data: {
+				lang: "en",
+				// ワード
+				login: { en: "login", ja: "ログイン" },
+				ID: { en: "login-ID", ja: "ログインID" },
+				PW: { en: "Password", ja: "パスワード" },
+				st: { en: "status on save", ja: "状態を記憶する" },
+			},
+			methods: {},
+		});
+	</script>
+
+</body>
+
+</html>

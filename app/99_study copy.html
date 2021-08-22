@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- css -->
+    <link rel="stylesheet" href="../css/bootstrap.css" />
+    <link rel="stylesheet" href="../css/style.css" />
+
+    <!-- js -->
+    <script src="../js/vue.min.js"></script>
+    <script src="layout.js"></script>
+    <title>ダッシュボード</title>
+  </head>
+
+  <body>
+    <section id="app">
+      <section class="container-fluid">
+        <div class="row">
+          <!-- サイドメニュー -->
+          <sidemenu></sidemenu>
+
+          <!-- 画面イメージ -->
+          <section role="main " class="col-md-10 ms-auto bg-light">
+            <!-- ナビバー -->
+            <navbar :lang.sync="lang"></navbar>
+            <!-- パンくず -->
+            <nav class="ps-2" aria-label="breadcrumb fs-5">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item active" aria-current="page">
+                  学習・問題
+                </li>
+              </ol>
+            </nav>
+
+            <main class="container">
+              <div class="main container col-md">
+                <h3 class="">選択問題</h3>
+
+                <div class="row row-cols-1 g-4 pb-5">
+                  <!-- 選択問題 -->
+                  <div
+                    v-for="(item,index) in quizlist"
+                    :key="index"
+                    class="card"
+                  >
+                    <!-- 問題番号 -->
+                    <b>第{{index+1}}問</b>
+                    <!-- 問題文 -->
+                    <div>{{item.question}}</div>
+                    <!-- 選択肢 -->
+                    <div class="mb-2">
+                      <span>A:</span>
+                      <input
+                        type="radio"
+                        v-model="item.picked"
+                        value="choice_a"
+                        class="btn-check"
+                        :name="index"
+                        :id="index+'_a'"
+                        autocomplete="off"
+                        @click="judge('choice_a',item.answer)"
+                      />
+                      <label class="btn btn-outline-primary" :for="index+'_a'"
+                        >{{item.choice_a}}</label
+                      >
+                    </div>
+
+                    <div class="mb-2">
+                      <span>B:</span>
+                      <input
+                        type="radio"
+                        v-model="item.picked"
+                        value="choice_b"
+                        class="btn-check"
+                        :name="index"
+                        :id="index+'_b'"
+                        autocomplete="off"
+                        @click="judge('choice_b',item.answer)"
+                      />
+                      <label class="btn btn-outline-primary" :for="index+'_b'"
+                        >{{item.choice_b}}</label
+                      >
+                    </div>
+
+                    <div class="mb-2">
+                      <span>C:</span>
+                      <input
+                        type="radio"
+                        v-model="item.picked"
+                        value="choice_c"
+                        class="btn-check"
+                        :name="index"
+                        :id="index+'_c'"
+                        autocomplete="off"
+                        @click="judge('choice_c',item.answer)"
+                      />
+                      <label class="btn btn-outline-primary" :for="index+'_c'"
+                        >{{item.choice_c}}</label
+                      >
+                    </div>
+
+                    <div class="mb-2">
+                      <span>D:</span>
+                      <input
+                        type="radio"
+                        v-model="item.picked"
+                        value="choice_d"
+                        class="btn-check"
+                        :name="index"
+                        :id="index+'_d'"
+                        autocomplete="off"
+                        @click="judge('choice_d',item.answer)"
+                      />
+                      <label class="btn btn-outline-primary" :for="index+'_d'"
+                        >{{item.choice_d}}</label
+                      >
+                    </div>
+
+                    <!-- 正誤判定 -->
+                    <div v-if="item.picked==null "></div>
+
+                    <!-- 正解の場合 -->
+                    <div v-else-if="item.picked==item.answer ">
+                      <div class="alert alert-info" role="alert">
+                        <b>正解：{{item.answer}}</b>
+                        <!-- 解説 -->
+                        <p>{{item.commentary}}</p>
+                      </div>
+                    </div>
+
+                    <!-- 不正解の場合 -->
+                    <div v-else>
+                      <div class="alert alert-danger" role="alert">不正解</div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- 問題作成 -->
+                <div class="alert alert-primary">
+                  <h5>問題作成</h5>
+                  <form action="">
+                    <!-- 問題文 -->
+                    <div class="mb-1 row">
+                      <label
+                        for="input_question"
+                        class="col-sm-2 col-form-label"
+                        >問題文</label
+                      >
+                      <div class="col-sm-10">
+                        <input
+                          type="text"
+                          v-model="input_question"
+                          class="form-control"
+                          id="input_question"
+                        />
+                      </div>
+                    </div>
+                    <!-- 選択肢 -->
+                    <div class="mb-1 row">
+                      <label
+                        for="input_choice_a"
+                        class="col-sm-2 col-form-label"
+                        >選択肢A</label
+                      >
+                      <div class="col-sm-10">
+                        <input
+                          type="text"
+                          v-model="input_choice_a"
+                          class="form-control"
+                          id="input_choice_a"
+                        />
+                      </div>
+                    </div>
+                    <div class="mb-1 row">
+                      <label
+                        for="input_choice_b"
+                        class="col-sm-2 col-form-label"
+                        >選択肢B</label
+                      >
+                      <div class="col-sm-10">
+                        <input
+                          type="text"
+                          v-model="input_choice_b"
+                          class="form-control"
+                          id="input_choice_b"
+                        />
+                      </div>
+                    </div>
+                    <div class="mb-1 row">
+                      <label
+                        for="input_choice_c"
+                        class="col-sm-2 col-form-label"
+                        >選択肢C</label
+                      >
+                      <div class="col-sm-10">
+                        <input
+                          type="text"
+                          v-model="input_choice_c"
+                          class="form-control"
+                          id="input_choice_c"
+                        />
+                      </div>
+                    </div>
+                    <div class="mb-1 row">
+                      <label
+                        for="input_choice_d"
+                        class="col-sm-2 col-form-label"
+                        >選択肢D</label
+                      >
+                      <div class="col-sm-10">
+                        <input
+                          type="text"
+                          v-model="input_choice_d"
+                          class="form-control"
+                          id="input_choice_d"
+                        />
+                      </div>
+                    </div>
+
+                    <!-- 正解 -->
+                    <div class="mb-1 row">
+                      <label
+                        for="input_choice_d"
+                        class="col-sm-2 col-form-label"
+                        >正解</label
+                      >
+                      <div class="col-sm-10">
+                        <input
+                          type="radio"
+                          v-model="input_answer"
+                          class="btn-check"
+                          name="answer"
+                          id="answer_a"
+                          autocomplete="off"
+                          value="choice_a"
+                        />
+                        <label class="btn btn-outline-primary" for="answer_a"
+                          >A</label
+                        >
+
+                        <input
+                          type="radio"
+                          v-model="input_answer"
+                          class="btn-check"
+                          name="answer"
+                          id="answer_b"
+                          autocomplete="off"
+                          value="choice_b"
+                        />
+                        <label class="btn btn-outline-primary" for="answer_b"
+                          >B</label
+                        >
+
+                        <input
+                          type="radio"
+                          v-model="input_answer"
+                          class="btn-check"
+                          name="answer"
+                          id="answer_c"
+                          autocomplete="off"
+                          value="choice_c"
+                        />
+                        <label class="btn btn-outline-primary" for="answer_c"
+                          >C</label
+                        >
+
+                        <input
+                          type="radio"
+                          v-model="input_answer"
+                          class="btn-check"
+                          name="answer"
+                          id="answer_d"
+                          autocomplete="off"
+                          value="choice_d"
+                        />
+                        <label class="btn btn-outline-primary" for="answer_d"
+                          >d</label
+                        >
+                      </div>
+                    </div>
+
+                    <!-- 解説 -->
+                    <div class="mb-1 row">
+                      <label
+                        for="input_commentary"
+                        class="col-sm-2 col-form-label"
+                        >解説</label
+                      >
+                      <div class="col-sm-10">
+                        <textarea
+                          name=""
+                          v-model="input_commentary"
+                          id="input_commentary"
+                          class="form-control"
+                          rows="3"
+                        ></textarea>
+                      </div>
+                    </div>
+
+                    <!-- 登録ボタン -->
+                    <div class="mb-1 row">
+                      <input
+                        type="button"
+                        value="登録"
+                        class="col-md-6 offset-md-3 btn btn-primary"
+                        @click="add_question"
+                      />
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </main>
+          </section>
+        </div>
+      </section>
+    </section>
+
+    <!-- bootstrap.js -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- vue.js -->
+    <script>
+      // 正解音、不正解音
+      const good = new Audio("../sound/good.mp3");
+      const bad = new Audio("../sound/bad.mp3");
+
+      //   vueインスタンス
+      var app = new Vue({
+        el: "#app",
+        data: {
+          lang: "en",
+          picked: "",
+          quizlist: [
+            {
+              id: 1,
+              question: "お酢に卵を殻ごといれると卵はどうなるでしょう？",
+              choice_a: "透明な卵になる",
+              choice_b: "鏡のようになんでもうつる卵になる",
+              choice_c: "卵が溶けてなくなる",
+              choice_d: "卵が石のように堅くなる",
+              answer: "choice_a",
+              commentary:
+                "たまごのカラは「炭酸カルシウム」というものでできているので、お酢につけるとカラがとける、というわけ！また、お酢がたまごの中に入ってくるので、たまごはもとの大きさよりも少し大きくなるんだよ！お酢にはカルシウムをとかす力があるから、ふだんは食べないものにふくまれるカルシウムも食べることができるんだ！",
+            },
+            {
+              id: 2,
+              question: "リンカーンは大統領になる前は何をしていたでしょうか？",
+              choice_a: "プロ野球選手",
+              choice_b: "猟師",
+              choice_c: "レスラー",
+              choice_d: "タクシー運転手",
+              answer: "choice_c",
+              commentary:
+                "リンカーンはよく知られているように身長が193cmもあり、これは歴代米国大統領の中で一番高い。その肉体は幼少期からの苛酷な労働で逞しく鍛えられており、若き日の選挙活動の中において、「彼の対立候補がもっとも恐れたのは、彼の政策ではなく、その強く大きな肉体だった」とまで言われたのだ。",
+            },
+            {
+              id: 3,
+              question:
+                "飛行機の中で食べるように日本で作られた野菜があります。その野菜はどれでしょう？",
+              choice_a: "ミニトマト",
+              choice_b: "パプリカ",
+              choice_c: "アボカド",
+              choice_d: "ズッキーニ",
+              answer: "choice_a",
+              commentary:
+                "欧米路線では機内食にカットした大きなトマトを使うと、果肉から染み出た水分で他の野菜が傷んでしまうため、切らずにそのまま料理に使えて、彩りの良いミニトマトが使われていました。搭乗時、それを見て感激した日本の農業関係者が栽培を始めたところ「かわいい」「食べやすい」と好評となり、昭和50年代後半頃から国内で定着していったといわれています。",
+            },
+          ],
+          input_question: "",
+          input_choice_a: "",
+          input_choice_b: "",
+          input_choice_c: "",
+          input_choice_d: "",
+          input_answer: "choice_a",
+          input_commentary: "",
+        },
+        methods: {
+          judge(p, a) {
+            if (p === a) {
+              good.play();
+            } else {
+              bad.play();
+            }
+          },
+          add_question() {
+            this.quizlist.push({
+              question: this.input_question,
+              choice_a: this.input_choice_a,
+              choice_b: this.input_choice_b,
+              choice_c: this.input_choice_c,
+              choice_d: this.input_choice_d,
+              answer: this.input_answer,
+              commentary: this.input_commentary,
+            });
+            this.input_question = "";
+            this.input_choice_a = "";
+            this.input_choice_b = "";
+            this.input_choice_c = "";
+            this.input_choice_d = "";
+            this.input_answer = "choice_a";
+            this.input_commentary = "";
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

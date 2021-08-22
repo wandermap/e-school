@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- css -->
+    <link rel="stylesheet" href="../css/bootstrap.css" />
+    <link rel="stylesheet" href="../css/style.css" />
+
+    <!-- js -->
+    <script src="../js/vue.min.js"></script>
+    <script src="layout.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <title>ダッシュボード</title>
+  </head>
+
+  <body>
+    <section id="app">
+      <section class="container-fluid">
+        <div class="row">
+          <!-- サイドメニュー -->
+          <sidemenu></sidemenu>
+
+          <!-- 画面イメージ -->
+          <section role="main " class="col-md-10 ms-auto bg-light">
+            <!-- ナビバー -->
+            <navbar :lang.sync="lang"></navbar>
+            <!-- パンくず -->
+            <nav class="ps-2" aria-label="breadcrumb fs-5">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item active" aria-current="page">
+                  ログイン
+                </li>
+              </ol>
+            </nav>
+
+            <main class="container">
+              <!-- <button @click="getBook">getBook</button>
+              <ul>
+                <li v-for="item in apidata.data">{{item}}</li>
+              </ul> -->
+              <section class="row">
+                <section v-for="item in apidata.data" class="col-md-3">
+                  <div class="card mb-2" style="height: 10rem">
+                    <section class="row p-2">
+                      <img
+                        src="../asset/book.png"
+                        class="card-img-top col-4"
+                        alt="..."
+                        height="50"
+                        style="width: fit-content"
+                      />
+                      <h5 class="card-title col my-auto">{{item.name}}</h5>
+                    </section>
+
+                    <div class="card-body">
+                      <div class="card-text">
+                        {{item.category}}:{{item.level}}
+                      </div>
+                      <p class="card-text">{{item.description}}</p>
+                    </div>
+                  </div>
+                </section>
+              </section>
+            </main>
+          </section>
+        </div>
+      </section>
+    </section>
+
+    <!-- bootstrap.js -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- vue.js -->
+    <script>
+      var app = new Vue({
+        el: "#app",
+        data: {
+          lang: "en",
+          // ワード
+          login: { en: "login", ja: "ログイン" },
+          ID: { en: "login-ID", ja: "ログインID" },
+          PW: { en: "Password", ja: "パスワード" },
+          st: { en: "status on save", ja: "状態を記憶する" },
+          apidata: [],
+        },
+        mounted() {
+          this.getBook();
+        },
+        methods: {
+          async getBook() {
+            this.apidata = await axios.get(
+              "https://script.googleusercontent.com/macros/echo?user_content_key=QiEOOgbsAS-bRkGqszrm2iHAijILPpI36GIQ3o1SvAZg3RIwYMtfbLMF0HSnaEWlw0JTKjpr1lnRXDsmcLziQblS_w5IM7Bvm5_BxDlH2jW0nuo2oDemN9CCS2h10ox_1xSncGQajx_ryfhECjZEnGIUSO2jF-skBKFvT4ZVUnqRiPX8wCRK3ZSwt71vcjxHfNYgLDjI0eQCQQRb5_fsqK5hEvA4ivm2oR-tBC_2m9KRMdZzW9i2S9z9Jw9Md8uu&lib=MhijwKClD3QQKz-sYu-Op7rt50MI0EUZF"
+            );
+            // console.log(this.apidata.data);
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

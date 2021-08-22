@@ -1,0 +1,190 @@
+/* webアイコン */
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css");
+
+/* webフォント */
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap");
+* {
+  font-family: "Noto Sans JP", sans-serif;
+}
+
+/* 翻訳表記 */
+.trans {
+  font-size: small;
+  color: gray;
+  padding-left: 0.5rem;
+}
+
+/* * ナビゲーションバー */
+.navbar-brand {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  font-size: 1rem;
+  /* background-color: rgba(0, 0, 0, 0.25);
+  box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.25); */
+}
+
+.navbar .navbar-toggler {
+  top: 0.25rem;
+  right: 1rem;
+}
+
+.navbar .form-control {
+  padding: 0.75rem 1rem;
+  border-width: 0;
+  border-radius: 0;
+}
+
+/** サイドバー */
+.sidebar {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 100; /* ナビゲーションバーの背面 */
+  padding: 13px 0 0;
+  box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 767.98px) {
+  .sidebar {
+    top: 5rem;
+  }
+}
+
+.sidebar-sticky {
+  position: relative;
+  /* top: 0; */
+  height: calc(100vh - 48px);
+  /* padding-top: 0.5rem; */
+  overflow-x: hidden;
+  overflow-y: auto; /* ビューポートがコンテンツより短い場合、スクロール可能なコンテンツ */
+}
+
+@supports ((position: -webkit-sticky) or (position: sticky)) {
+  .sidebar-sticky {
+    position: -webkit-sticky;
+    position: sticky;
+  }
+}
+
+.sidebar .nav-link {
+  font-weight: 500;
+  color: #333;
+  padding: 0.25rem 1rem;
+}
+
+.sidebar .nav-link .feather {
+  margin-right: 4px;
+  color: #999;
+}
+
+.sidebar .nav-link.active {
+  color: #007bff;
+}
+
+.sidebar .nav-link:hover {
+  background-color: #e7f1ff;
+  font-size: large;
+}
+
+.sidebar .nav-link:hover .feather,
+.sidebar .nav-link.active .feather {
+  color: inherit;
+}
+
+.sidebar-heading {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+}
+
+/* form */
+.form-control-dark {
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.form-control-dark:focus {
+  border-color: transparent;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.25);
+}
+
+/* タブ */
+.tab {
+  display: contents;
+}
+.tab + label {
+  border: solid 1px;
+  border-style: solid solid none;
+  border-radius: 7px 7px 0px 0;
+}
+
+.tab:checked + label {
+  color: white;
+  background-color: #0d6efd;
+}
+
+/* tips */
+/* マウスオンする要素とツールチップを横並びにする */
+.c-tooltip {
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+}
+
+/* ツールチップ共通の設定 */
+.c-tooltip::before,
+.c-tooltip::after {
+  opacity: 0;
+  position: absolute;
+  visibility: hidden;
+  z-index: 11;
+}
+
+/* ツールチップ吹き出しのひげ */
+.c-tooltip::before {
+  -webkit-transform: translateY(-50%);
+  border-color: transparent #5f6368 transparent transparent;
+  border-style: solid;
+  border-width: 3px 7px 3px 0;
+  content: "";
+  height: 0;
+  left: calc(100% + 4px);
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+}
+
+/* ツールチップ吹き出しの本体 */
+.c-tooltip::after {
+  -webkit-transform: translateY(-50%);
+  background: #5f6368;
+  border-radius: 6px;
+  color: #fff;
+  content: attr(data-tooltip); /* ここでdata-tooltipの内容を呼び出しているよ */
+  display: block;
+  font-size: 0.8rem;
+  left: calc(100% + 11px);
+  padding: 5px 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  white-space: nowrap;
+}
+
+.c-tooltip:hover::before {
+  opacity: 1;
+  visibility: visible;
+}
+
+.c-tooltip:hover::after {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* .accordion-button{
+  background-color: unset;
+} */
+
+.accordion-button.collapsed {
+  background-color: rgb(239, 239, 239) !important;
+}
