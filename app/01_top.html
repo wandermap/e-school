@@ -79,20 +79,40 @@
             <!-- コンテンツ -->
             <main class="container">
               <!-- お知らせ表示 -->
-              <section class="row mb-3">
+              <section v-show="notice.title" class="row mb-2">
                 <div class="col-md-8 m-auto">
                   <div class="alert alert-warning" role="alert">
-                    <h5 class="alert-heading">お知らせタイトル</h5>
-                    <div class="px-2">いろいろとお知らせ</div>
+                    <h5 class="alert-heading">{{notice.title}}</h5>
+                    <div class="px-2">{{notice.content}}</div>
                   </div>
                 </div>
               </section>
+
+              <!-- 検索 -->
+              <section class="row">
+                <section class="col-md-4 mb-2">
+                  <div class="input-group mb-3">
+                    <input
+                      type="search"
+                      class="form-control"
+                      placeholder="検索"
+                      v-model="keyword"
+                    />
+                    <button class="btn btn-outline-primary" type="button">
+                      検索
+                    </button>
+                  </div>
+                </section>
+              </section>
+
               <!-- book一覧 -->
               <section class="row">
                 <a
-                  href="02_study.html"
-                  v-for="item in books"
+                  href="#"
+                  v-for="item in filteredBooks"
                   class="col-md-3 text-decoration-none"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal"
                 >
                   <div class="card mb-2" style="height: 10rem">
                     <section class="row p-2">
@@ -114,6 +134,56 @@
                     </div>
                   </div>
                 </a>
+
+                <!-- Modal -->
+                <div
+                  class="modal"
+                  id="exampleModal"
+                  tabindex="-1"
+                  aria-labelledby="exampleModalLabel"
+                  aria-hidden="true"
+                >
+                  <div
+                    class="
+                      modal-dialog modal-dialog-centered modal-dialog-scrollable
+                    "
+                  >
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">
+                          中学の数学を総復習
+                        </h5>
+                        <button
+                          type="button"
+                          class="btn-close"
+                          data-bs-dismiss="modal"
+                          aria-label="Close"
+                        ></button>
+                      </div>
+
+                      <div class="modal-body">
+                        <!-- <ul v-for="c in chapter">
+                          <li>{{c}}</li>
+                        </ul> -->
+                        <table class="table table-hover">
+                          <tr v-for="c in chapter">
+                            <td><a href="02_study.html">{{c}}</a></td>
+                          </tr>
+                        </table>
+                      </div>
+
+                      <!-- <div class="modal-footer">
+                        <button
+                          type="button"
+                          class="btn btn-secondary"
+                          data-bs-dismiss="modal"
+                        >
+                          閉じる
+                        </button>
+                      </div> -->
+                    </div>
+                  </div>
+                </div>
               </section>
             </main>
           </section>
@@ -133,12 +203,7 @@
       var app = new Vue({
         el: "#app",
         data: {
-          lang: "en",
-          // ワード
-          login: { en: "login", ja: "ログイン" },
-          ID: { en: "login-ID", ja: "ログインID" },
-          PW: { en: "Password", ja: "パスワード" },
-          st: { en: "status on save", ja: "状態を記憶する" },
+          keyword: "",
           books: [
             {
               bookId: "b1",
@@ -177,7 +242,25 @@
               img: "",
             },
           ],
+          chapter: [
+            "正負の数",
+            "文字と式",
+            "多項式",
+            "平方根",
+            "方程式",
+            "比例と反比例",
+            "関数",
+            "平面図形",
+            "空間図形",
+            "平行と合同",
+            "相似な図形",
+            "円",
+            "三平方の定理",
+            "確率",
+            "データの比較",
+          ],
           getApi: [],
+          notice: { title: "", content: "バージョンアップ" },
         },
         mounted() {
           this.getBook();
@@ -189,6 +272,22 @@
             );
             this.books = this.getApi.data;
             // console.log(this.apidata.data);
+          },
+        },
+        computed: {
+          filteredBooks: function () {
+            var books = [];
+            for (var b in this.books) {
+              var book = this.books[b];
+              if (
+                book.name.indexOf(this.keyword) !== -1 ||
+                book.category.indexOf(this.keyword) !== -1 ||
+                book.description.indexOf(this.keyword) !== -1
+              ) {
+                books.push(book);
+              }
+            }
+            return books;
           },
         },
       });
