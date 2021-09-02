@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- css -->
+    <link rel="stylesheet" href="../css/bootstrap.css" />
+    <link rel="stylesheet" href="../css/style.css" />
+
+    <!-- js -->
+    <script src="../js/vue.min.js"></script>
+    <script src="layout.js"></script>
+
+    <title>ページの作成</title>
+    <link rel="shortcut icon" href="../asset/favicon.ico" />
+  </head>
+
+  <body>
+    <section id="app">
+      <section class="container-fluid">
+        <div class="row">
+          <!-- サイドメニュー -->
+          <sidemenu></sidemenu>
+
+          <!-- 画面イメージ -->
+          <section role="main " class="col-md-10 ms-auto bg-light">
+            <!-- ナビバー -->
+            <navbar></navbar>
+            <!-- パンくず -->
+            <nav class="ps-2" aria-label="breadcrumb fs-5">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item active" aria-current="page">
+                  ページの作成
+                </li>
+              </ol>
+            </nav>
+
+            <main class="container">
+              <section class="row">
+                <div class="col-md-3 border alert-warning">
+                  1ページ
+                  <h5 class="">もくじタイトル</h5>
+                  <p class="">概要</p>
+                </div>
+              </section>
+            </main>
+          </section>
+        </div>
+      </section>
+    </section>
+
+    <!-- bootstrap.js -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- vue.js -->
+    <script>
+      var app = new Vue({
+        el: "#app",
+        data: {
+          category: [
+            "国語",
+            "算数・数学",
+            "生物",
+            "科学",
+            "歴史",
+            "文化",
+            "政治",
+            "哲学",
+            "ゲーム",
+            "IT",
+            "スポーツ",
+            "語学",
+            "芸能",
+          ],
+          level: [
+            "小学生",
+            "中学生",
+            "高校生",
+            "大学生",
+            "新社会人",
+            "中堅社会人",
+          ],
+          description: "",
+        },
+        methods: {},
+      });
+    </script>
+  </body>
+</html>

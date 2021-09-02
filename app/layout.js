@@ -161,6 +161,7 @@ Vue.component("sidemenu", {
                       data-bs-parent="#accordionExample"
                     >
                       <div class="accordion-body p-1">
+                      <span class="form-text">ログイン不要</span>
                         <ul class="nav flex-column">
                           <li class="nav-item">
                             <a class="nav-link" href="01_top.html">
@@ -182,24 +183,37 @@ Vue.component("sidemenu", {
                               ログイン
                             </a>
                           </li>
+                          </ul>
+                          <span class="form-text">ログイン後</span>
+                        <ul class="nav flex-column">
                           <li class="nav-item">
-                            <a class="nav-link" href="04_login.html">
-                              パスワード変更
+                            <a class="nav-link" href="05_booklist.html">
+                              Bookリスト
                             </a>
-                          </li>
+                          </li>                    
                           <li class="nav-item">
-                            <a class="nav-link" href="04_login.html">
+                            <a class="nav-link" href="06_newbook.html">
                               book作成
                             </a>
                           </li>
                           <li class="nav-item">
-                            <a class="nav-link" href="04_login.html">
+                            <a class="nav-link" href="07_newpage.html">
+                              page一覧・作成
+                            </a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" href="#">
                               問題作成
                             </a>
                           </li>
                           <li class="nav-item">
-                            <a class="nav-link" href="../admin/01_login.html">
+                            <a class="nav-link" href="#">
                               成績確認
+                            </a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" href="05_account.html">
+                              アカウント設定
                             </a>
                           </li>
                         </ul>

@@ -11,7 +11,7 @@
     <!-- js -->
     <script src="../js/vue.min.js"></script>
     <script src="layout.js"></script>
-    <title>アカウント登録</title>
+    <title>ダッシュボード</title>
     <link rel="shortcut icon" href="../asset/favicon.ico" />
   </head>
 
@@ -25,61 +25,65 @@
           <!-- 画面イメージ -->
           <section role="main " class="col-md-10 ms-auto bg-light">
             <!-- ナビバー -->
-            <navbar_logoff></navbar_logoff>
+            <navbar :lang.sync="lang"></navbar>
             <!-- パンくず -->
             <nav class="ps-2" aria-label="breadcrumb fs-5">
               <ol class="breadcrumb">
                 <li class="breadcrumb-item active" aria-current="page">
-                  アカウント登録
+                  アカウント設定
                 </li>
               </ol>
             </nav>
 
             <main class="container">
-              <section
-                class="border m-auto text-center p-md-4"
-                style="max-width: 600px"
-              >
-                <section>
-                  <img class="my-3" src="../asset/logo.png" alt="" />
-                </section>
-
-                <h1 class="h3 mb-3 fw-normal text-center">アカウント登録</h1>
-                <div class="form-floating mb-2">
+              <section class="border m-auto p-md-4" style="max-width: 600px">
+                <h1 class="h3 mb-3 fw-normal text-center">アカウント設定</h1>
+                <div class="mb-3">
+                  <label for="name">アカウント表示名</label>
                   <input
                     type="text"
                     class="form-control"
-                    id="floatingInput"
-                    placeholder="name@example.com"
+                    id="name"
+                    value="ザ・テスター"
                   />
-                  <label for="floatingInput">アカウント表示名</label>
                 </div>
-                <div class="form-floating mb-2">
+                <div class="mb-3">
+                  <label for="email">メールアドレス</label>
                   <input
                     type="email"
                     class="form-control"
-                    id="floatingInput"
-                    placeholder="name@example.com"
+                    id="email"
+                    value="name@example.com"
                   />
-                  <label for="floatingInput">メールアドレス</label>
                 </div>
-                <div class="form-floating mb-2">
+                <div class="mb-3">
+                  <label for="nowPassword">現在のパスワード</label>
                   <input
                     type="password"
                     class="form-control"
-                    id="floatingPassword"
+                    id="nowPassword"
                     placeholder="パスワード"
                   />
-                  <label for="floatingPassword">パスワード</label>
                 </div>
-                <a
-                  href="04_login.html"
-                  class="w-100 btn btn-lg btn-primary mb-3"
-                >
-                  登録する
-                </a>
-
-                <p class="mt-5 mb-3 text-muted">&copy; 2010-2022</p>
+                <div class="mb-3">
+                  <label for="newPassword">新しいパスワード</label>
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="newPassword"
+                    placeholder="パスワード"
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="checkPassword">新しいパスワード(確認)</label>
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="checkPassword"
+                    placeholder="パスワード"
+                  />
+                </div>
+                <a href="#" class="w-100 btn btn-lg btn-primary mb-3"> 更新 </a>
               </section>
             </main>
           </section>

@@ -27,47 +27,7 @@
           <!-- 画面イメージ -->
           <section role="main " class="col-md-10 ms-auto bg-light">
             <!-- ナビバー -->
-            <nav
-              class="
-                navbar navbar-expand-md
-                sticky-top
-                navbar-light
-                bg-secondary bg-gradient
-              "
-            >
-              <div class="container-fluid">
-                <a class="navbar-brand" href="01_top.html">学習システム</a>
-                <button
-                  class="navbar-toggler"
-                  type="button"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#navbarSupportedContent"
-                  aria-controls="navbarSupportedContent"
-                  aria-expanded="false"
-                  aria-label="Toggle navigation"
-                >
-                  <span class="navbar-toggler-icon"></span>
-                </button>
-                <div
-                  class="collapse navbar-collapse"
-                  id="navbarSupportedContent"
-                >
-                  <!-- 遷移 -->
-                  <ul class="navbar-nav mb-lg-0 ms-auto">
-                    <li class="nav-item nav-link">
-                      <a class="btn btn-primary" href="04_login.html"
-                        >ログイン</a
-                      >
-                    </li>
-                    <li class="nav-item nav-link">
-                      <a class="btn btn-primary" href="03_signin.html"
-                        >会員登録</a
-                      >
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </nav>
+            <navbar></navbar>
             <!-- パンくず -->
             <nav class="ps-2" aria-label="breadcrumb fs-5">
               <ol class="breadcrumb">
@@ -99,6 +59,9 @@
                     v-model="keyword"
                   />
                 </section>
+                <section class="col-md-4 mb-2">
+                  <a href="06_newbook.html" class="btn btn-primary">作成</a>
+                </section>
               </section>
 
               <!-- book一覧 -->
@@ -106,7 +69,7 @@
                 <a
                   href="#"
                   v-for="item in filteredBooks"
-                  class="col-md-3 text-decoration-none"
+                  class="col-md-3 text-decoration-none position-relative"
                   data-bs-toggle="modal"
                   data-bs-target="#exampleModal"
                   data-bookid="item.name"
@@ -122,6 +85,7 @@
                         height="50"
                         style="width: fit-content"
                       />
+
                       <h5 class="card-title col my-auto">{{item.name}}</h5>
                     </section>
 
@@ -134,6 +98,12 @@
                       </section>
                     </div>
                   </div>
+                  <span
+                    v-show="item.done"
+                    class="position-absolute badge rounded-pill bg-secondary"
+                    style="top: 13%; left: 8%"
+                    >クリア
+                  </span>
                 </a>
 
                 <!-- 本のもくじModal -->
@@ -176,7 +146,14 @@
                               <tr v-for="c in item.chapter">
                                 <td>
                                   <a href="02_study.html" class="d-block"
-                                    >{{c}}</a
+                                    >{{c.name}}</a
+                                  >
+                                </td>
+                                <td class="text-center">
+                                  <span
+                                    v-show="c.done"
+                                    class="badge bg-secondary"
+                                    >クリア</span
                                   >
                                 </td>
                               </tr>
@@ -219,14 +196,15 @@
               description: "中学の数学を総復習：その１「式と計算」",
               img: "",
               chapter: [
-                "正負の数",
-                "文字と式",
-                "多項式",
-                "平方根",
-                "方程式",
-                "比例と反比例",
-                "関数",
+                { name: "正負の数", done: true },
+                { name: "文字と式", done: true },
+                { name: "多項式", done: true },
+                { name: "平方根", done: true },
+                { name: "方程式", done: true },
+                { name: "比例と反比例", done: true },
+                { name: "関数", done: true },
               ],
+              done: true,
             },
             {
               bookId: "jm2",
@@ -239,13 +217,14 @@
               description: "中学の数学を総復習：その２「図形」",
               img: "",
               chapter: [
-                "平面図形",
-                "空間図形",
-                "平行と合同",
-                "相似な図形",
-                "円",
-                "三平方の定理",
+                { name: "平面図形", done: true },
+                { name: "空間図形", done: true },
+                { name: "平行と合同", done: true },
+                { name: "相似な図形", done: false },
+                { name: "円", done: false },
+                { name: "三平方の定理", done: false },
               ],
+              done: false,
             },
             {
               bookId: "jm3",
@@ -257,7 +236,11 @@
               orderNum: 2,
               description: "中学の数学を総復習：その３「確率・統計」",
               img: "",
-              chapter: ["確率", "データの比較"],
+              chapter: [
+                { name: "確率", done: false },
+                { name: "データの比較", done: false },
+              ],
+              done: false,
             },
           ],
           choise: "",
