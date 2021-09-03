@@ -190,7 +190,12 @@ Vue.component("sidemenu", {
                             <a class="nav-link" href="05_booklist.html">
                               Bookリスト
                             </a>
-                          </li>                    
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" href="06-1_mybook.html">
+                              myBook
+                            </a>
+                          </li>                
                           <li class="nav-item">
                             <a class="nav-link" href="06_newbook.html">
                               book作成
